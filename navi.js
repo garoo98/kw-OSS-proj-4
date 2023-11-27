@@ -1,10 +1,9 @@
-
 const navigationBar = `
     <div class="navbar">
         <a href="index.html">MyPortfolio</a>
         <div>
             <a href="index.html">Home</a>
-            <a href="login.html">Log In</a>
+            <a href="login.html" id='nav-log'>Log In</a>
             <a href="search.html">Search</a>
             <a href="profile.html">MyProfile</a>
         </div>

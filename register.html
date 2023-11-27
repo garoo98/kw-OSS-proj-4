@@ -1,13 +1,90 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reigster - MyPortfolio</title>
-</head>
-<body>
-    <div id="navbar"></div>
-    <script src="navi.js"></script>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>reigster - MyPortfolio</title>
+    </head>
+    <body>
+        <div id="navbar"></div>
+        <script src="navi.js"></script>
+        <!--  여기에 html 구현
+            
+
+
+
+            
+-->
+    </body>
+
+    <!-- firebase  -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js';
+        import {
+            getAuth, // authentication 설정
+            onAuthStateChanged, //state change method
+        } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: 'AIzaSyCewXKX4dEBB-Lrh4ymr_EOcn1Jdw3_pUk',
+            authDomain: 'opensource-project-b2d2f.firebaseapp.com',
+            projectId: 'opensource-project-b2d2f',
+            storageBucket: 'opensource-project-b2d2f.appspot.com',
+            messagingSenderId: '857335827397',
+            appId: '1:857335827397:web:64711d1e837f9264f199ac',
+            measurementId: 'G-6MPQYRFD68',
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const auth = getAuth();
+
+        //로그인 상태 확인
+        onAuthStateChanged(auth, (user) => {
+            // 사용자가 로그인한 상태
+            if (user) {
+                console.log('User is signed in:', user);
+                // 여기서 원하는 로그인 상태를 처리
+                //로그아웃 버튼을 nav에 추가 추가
+
+                const navbar_log = document.querySelector('#nav-log');
+                console.log(navbar_log);
+                navbar_log.textContent = 'Log Out';
+
+                const logoutButton = document.getElementById('nav-log');
+
+                //로그아웃 버튼을 누른 경우
+                logoutButton.addEventListener('click', (e) => {
+                    //로그아웃 버튼을 눌렀을때 동작 추가하기
+                    if (navbar_log.textContent === 'Log Out') {
+                        navbar_log.textContent = 'Log In';
+
+                        e.preventDefault();
+                        auth.signOut().then(() => {
+                            alert('logout');
+                            console.log(curuser);
+                        });
+                    } else if (navbar_log.textContent === 'Log In') {
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+            // 사용자가 로그아웃한 상태
+            else {
+                console.log('User is signed out');
+                //여기서 원하는 로그아웃 상태를 처리
+                const navbar_log = document.querySelector('#nav-log');
+                navbar_log.textContent = 'Log In';
+            }
+        });
+    </script>
 </html>
