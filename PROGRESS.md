@@ -38,7 +38,8 @@
 Search bar로 가면 대표적인 포트폴리오 예시를 몇가지 확인할 수 있으며 검색칸에 키워드로 원하는 포트폴리오를 찾을 수 있는 페이지 구현하였습니다.
 ## Individual Progress Status
 - 김현중
-
+  -웹페이지 Home화면 HTML과 navigation bar와 해당 content의 링크 페이지 구현
+  -회원가입 페이지 HTML 구현
 - 이성오
 
 - 조민제

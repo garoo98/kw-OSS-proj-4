@@ -3,18 +3,34 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous"
+            />
         <title>reigster - MyPortfolio</title>
     </head>
     <body>
         <div id="navbar"></div>
         <script src="navi.js"></script>
-        <!--  여기에 html 구현
-            
-
-
-
-            
--->
+        <!--회원 등록-->
+        <div class="text-center">
+        <h2>회원가입</h2>
+        </div>
+        <div class="container mt-3">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="name" id="name-new">
+            </div>
+            <div class="mb-3">
+                <input type="email" class="form-control" placeholder="email" id="email-new">
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" placeholder="pw" id="pw-new">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary ms-1 text-nowrap" id="register-btn">가입</button>
+            </div>
+        </div>
     </body>
 
     <!-- firebase  -->
@@ -47,7 +63,6 @@
         const analytics = getAnalytics(app);
 
         const auth = getAuth();
-
         //로그인 상태 확인
         onAuthStateChanged(auth, (user) => {
             // 사용자가 로그인한 상태
