@@ -11,16 +11,19 @@ const navigationBar = `
 `;
 const navbarStyle = `
     .navbar {
+        max-width: 1280px;
         display: flex;
-        justify-content: space-between;
         background-color: #f8f8f8;
         padding: 10px 20px;
+        margin: auto;
+
     }
     .navbar a {
         text-decoration: none;
         color: #333;
         padding: 10px 15px;
     }
+    
     body {
         font-family: 'Arial', sans-serif;
         margin: 0;
