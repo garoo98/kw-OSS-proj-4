@@ -46,8 +46,8 @@ Search bar로 가면 대표적인 포트폴리오 예시를 몇가지 확인할 
 ## Individual Progress Status
 
 -   김현중
-    웹페이지 Home화면 HTML과 navigation bar와 해당 content의 링크 페이지 구현([Commit Link]())
-    회원가입 페이지 HTML 구현([Commit Link]())
+    웹페이지 Home화면 HTML과 navigation bar와 해당 content의 링크 페이지 구현([Commit Link](https://github.com/garoo98/kw-OSS-proj-4/commit/80ee0b40ceefec7f4ac475b490afc4eca917bb21))
+    회원가입 페이지 HTML 구현([Commit Link](https://github.com/garoo98/kw-OSS-proj-4/commit/ae85ce477bdc2e0d114c394965421186bd014449))
 
 -   이성오
     FireBase를 이용하여 이메일 로그인 및 로그아웃 기능 구현([Commit Link](https://github.com/garoo98/kw-OSS-proj-4/commit/c51ba1652e8d4092e917faaee06cbb1862ee64f3))
