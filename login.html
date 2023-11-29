@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="login_style.css">
-    <title>Login - MyPortfolio</title>
-</head>
-<body>
-    <div id="navbar"></div>
-    <script src="navi.js"></script>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">로그인</h3>
-                        <form id="loginForm" action="/login" method="post">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="login_style.css">
+        <title>Login - MyPortfolio</title>
+    </head>
+    <body>
+        <div id="navbar"></div>
+        <script src="navi.js"></script>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title text-center">로그인</h3>
+                            <form id="loginForm" action="/login" method="post">
                                 <label for="inputEmail" class="form-label">아이디</label>
                                 <input type="id" class="form-control" id="inputid" placeholder="Email"  name="id" required >
                             <div class="mb-3">
@@ -28,17 +31,124 @@
                                 <label for="inputPassword" class="form-label">비밀번호</label>
                                 <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" required>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">로그인</button>
+                                <button type="button" class="btn btn-primary" id="login-btn">로그인</button>
                             </div>
                         </form>
+                        </div>
                     </div>
-                </div>
-                <div class="text-center mt-2">
-                    계정이 없으신가요? <a href="register.html">회원가입</a>
+                    <div class="text-center mt-2">
+                        계정이 없으신가요? <a href="register.html">회원가입</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-</body>
+      
+    </body>
+
+    <!-- firebase  -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js';
+        import {
+            getAuth, // authentication 설정
+            signInWithEmailAndPassword, // email login
+            createUserWithEmailAndPassword, //email signup
+            onAuthStateChanged, //state change method
+        } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: 'AIzaSyCewXKX4dEBB-Lrh4ymr_EOcn1Jdw3_pUk',
+            authDomain: 'opensource-project-b2d2f.firebaseapp.com',
+            projectId: 'opensource-project-b2d2f',
+            storageBucket: 'opensource-project-b2d2f.appspot.com',
+            messagingSenderId: '857335827397',
+            appId: '1:857335827397:web:64711d1e837f9264f199ac',
+            measurementId: 'G-6MPQYRFD68',
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const auth = getAuth();
+
+        let login_btn = document.querySelector('#login-btn');
+
+        //로그인 버튼을 누른 경우
+        login_btn.addEventListener('click', () => {
+            login();
+        });
+
+        //로그인 함수
+        function login() {
+            const email = document.querySelector('#inputid').value;
+            const password = document.querySelector('#inputPassword').value;
+            if (email === '') {
+                alert('ID를 입력하세요');
+            } else if (password == '') {
+                alert('비밀번호를 입력하세요');
+            } else {
+                signInWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        // Signed in
+                        const user = userCredential.user;
+                        loginSuccess(user);
+                        // ...
+                    })
+                    .catch((error) => {
+                        alert('아이디나 비밀번호가 일치하지 않습니다.');
+                    });
+            }
+        }
+
+        function loginSuccess(user) {
+            alert('로그인 성공');
+            window.location.href = 'index.html';
+        }
+
+        //로그인 상태 확인
+        onAuthStateChanged(auth, (user) => {
+            // 사용자가 로그인한 상태
+            if (user) {
+                console.log('User is signed in:', user);
+                // 여기서 원하는 로그인 상태를 처리
+                //로그아웃 버튼을 nav에 추가 추가
+
+                const navbar_log = document.querySelector('#nav-log');
+                console.log(navbar_log);
+                navbar_log.textContent = 'Log Out';
+
+                const logoutButton = document.getElementById('nav-log');
+
+                //로그아웃 버튼을 누른 경우
+                logoutButton.addEventListener('click', (e) => {
+                    //로그아웃 버튼을 눌렀을때 동작 추가하기
+                    if (navbar_log.textContent === 'Log Out') {
+                        navbar_log.textContent = 'Log In';
+
+                        e.preventDefault();
+                        auth.signOut().then(() => {
+                            alert('logout');
+                            console.log(curuser);
+                        });
+                    } else if (navbar_log.textContent === 'Log In') {
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+            // 사용자가 로그아웃한 상태
+            else {
+                console.log('User is signed out');
+                //여기서 원하는 로그아웃 상태를 처리
+                const navbar_log = document.querySelector('#nav-log');
+                navbar_log.textContent = 'Log In';
+            }
+        });
+    </script>
 </html>
