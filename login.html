@@ -8,7 +8,7 @@
             rel="stylesheet"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="login_style.css">
+        <link rel="stylesheet" href="login_style.css" />
         <title>Login - MyPortfolio</title>
     </head>
     <body>
@@ -21,19 +21,47 @@
                         <div class="card-body">
                             <h3 class="card-title text-center">로그인</h3>
                             <form id="loginForm" action="/login" method="post">
-                                <label for="inputEmail" class="form-label">아이디</label>
-                                <input type="id" class="form-control" id="inputid" placeholder="Email"  name="id" required >
-                            <div class="mb-3">
-                                <label for="remember-check">
-                                <input type="checkbox" id="remember-check">아이디 저장하기 <!-- 아이디 저장하기 기능 추가 -->
-                                </label>
-                            </div>
-                                <label for="inputPassword" class="form-label">비밀번호</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" required>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary" id="login-btn">로그인</button>
-                            </div>
-                        </form>
+                                <label for="inputEmail" class="form-label"
+                                    >아이디</label
+                                >
+                                <input
+                                    type="id"
+                                    class="form-control"
+                                    id="inputid"
+                                    placeholder="Email"
+                                    name="id"
+                                    required
+                                />
+                                <div class="mb-3">
+                                    <label for="remember-check">
+                                        <input
+                                            type="checkbox"
+                                            id="remember-check"
+                                        />아이디 저장하기
+                                        <!-- 아이디 저장하기 기능 추가 -->
+                                    </label>
+                                </div>
+                                <label for="inputPassword" class="form-label"
+                                    >비밀번호</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="inputPassword"
+                                    placeholder="Password"
+                                    name="password"
+                                    required
+                                />
+                                <div class="text-center">
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        id="login-btn"
+                                    >
+                                        로그인
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="text-center mt-2">
@@ -42,7 +70,6 @@
                 </div>
             </div>
         </div>
-      
     </body>
 
     <!-- firebase  -->
@@ -135,7 +162,6 @@
                         e.preventDefault();
                         auth.signOut().then(() => {
                             alert('logout');
-                            console.log(curuser);
                         });
                     } else if (navbar_log.textContent === 'Log In') {
                         window.location.href = 'login.html';
