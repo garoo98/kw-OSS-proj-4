@@ -40,6 +40,7 @@
                     class="form-control"
                     placeholder="pw"
                     id="pw-new"
+                    required
                 />
             </div>
             <div>
@@ -90,22 +91,27 @@
             var registerEmail = document.querySelector('#email-new').value;
             var registerPw = document.querySelector('#pw-new').value;
 
-            createUserWithEmailAndPassword(auth, registerEmail, registerPw)
-                .then((userCredential) => {
-                    // Registration successful
-                    var user = userCredential.user;
-                    console.log(user);
-                })
-                .catch((error) => {
-                    // Handle Errors
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error(
-                        'Registration error:',
-                        errorCode,
-                        errorMessage
-                    );
-                });
+            if (registerPw.length < 6) {
+                alert('more than 6 password');
+            } else {
+                createUserWithEmailAndPassword(auth, registerEmail, registerPw)
+                    .then((userCredential) => {
+                        // Registration successful
+                        var user = userCredential.user;
+                        console.log(user);
+                        window.location.href = 'index.html';
+                    })
+                    .catch((error) => {
+                        // Handle Errors
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.error(
+                            'Registration error:',
+                            errorCode,
+                            errorMessage
+                        );
+                    });
+            }
         });
         //로그인 상태 확인
         onAuthStateChanged(auth, (user) => {
