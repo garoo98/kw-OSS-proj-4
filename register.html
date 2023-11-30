@@ -8,37 +8,40 @@
             rel="stylesheet"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="register_style.css" />
         <title>reigster - MyPortfolio</title>
     </head>
     <body>
         <div id="navbar"></div>
         <script src="navi.js"></script>
-        <!--회원 등록-->
-        <div class="text-center">
-            <h2>회원가입</h2>
-        </div>
         <div class="container mt-3">
+        <!--회원 등록-->
+        <div class="col-md-6 offset-md-3">
+        <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center">회원가입</h3>
+        <form id="registerForm" action="/register" method="post">
             <div class="mb-3">
                 <input
                     type="text"
-                    class="form-control"
-                    placeholder="name"
+                    class="form-control custom-input"
+                    placeholder="이름"
                     id="name-new"
                 />
             </div>
             <div class="mb-3">
                 <input
                     type="email"
-                    class="form-control"
-                    placeholder="email"
+                    class="form-control custom-input"
+                    placeholder="이메일"
                     id="email-new"
                 />
             </div>
             <div class="mb-3">
                 <input
                     type="password"
-                    class="form-control"
-                    placeholder="pw"
+                    class="form-control custom-input"
+                    placeholder="비밀번호"
                     id="pw-new"
                     required
                 />
@@ -52,6 +55,10 @@
                     가입
                 </button>
             </div>
+        </form>
+        </div>
+        </div>
+        </div>
         </div>
     </body>
 
