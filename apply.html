@@ -140,6 +140,7 @@
             getAuth, // authentication 설정
             onAuthStateChanged, //state change method
         } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
+        import {getFirestore, doc, setDoc} from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -160,6 +161,7 @@
         const analytics = getAnalytics(app);
         
         const auth = getAuth();
+        const firestore = getFirestore(app);   
         //로그인 상태 확인
         onAuthStateChanged(auth, (user) => {
             // 사용자가 로그인한 상태
@@ -195,6 +197,51 @@
                 navbar_log.textContent = 'Log In';
                 window.location.href = 'login.html';
             }
+            const specialOfTheDay=doc(firestore, 'Data', user.email);
+            
+            //firestore에 정보 세팅 및 저장
+            async function writeDailySpecial(){
+                const description = document.querySelector('#description').value;
+                const imageElement = document.querySelector('#image-preview img');
+                const image = imageElement ? imageElement.src : '';
+                const historiesData = Array.from(document.querySelectorAll('.history-section')).map(section => {
+                        const title = section.querySelector('h3').textContent.replace(' Delete', ''); // 'Delete' 텍스트 제거
+                        const items = Array.from(section.querySelectorAll('.history-list li')).map(li => {
+                            return {
+                                text: li.childNodes[0].nodeValue.trim(), // 텍스트 내용
+                                url: li.querySelector('a') ? li.querySelector('a').href : '' // URL
+                            };
+                        });
+                        return { title, items };
+                    });
+
+                const docData={
+                    description,
+                    image,
+                    histroes:historiesData
+                }
+
+                //description input 박스안에 있는 text를 firestore에 저장
+                const descriptiontext=document.querySelector('#description').value;
+                docData.description=descriptiontext;
+
+                //image 칸의 박스 안에 있는 그림 정보를 firestore에 저장
+                const imageInfo=document.querySelector('img');
+                if(imageInfo!==null){
+                    docData.image=imageInfo.src;
+                }
+                
+                await setDoc(specialOfTheDay, docData);
+
+            }
+
+            const SubmitButton=document.querySelector('#submit-btn');
+            
+            SubmitButton.addEventListener('click',()=>{
+                writeDailySpecial().then(()=>{
+                    window.location.href = 'index.html';
+                })
+            })
         });
 
     </script>
