@@ -20,11 +20,12 @@
                 <div class="mb-3 row">
                     <div class="col-md-8">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" rows="4" placeholder="name, email, phone number etc"></textarea>
+                        <textarea class="form-control" id="description" rows="8" placeholder="name, email, phone number etc"></textarea>
                     </div>
                     <div class="col-md-4">
                         <label for="photo-upload" class="form-label">Upload Photo</label>
                         <input type="file" class="form-control" id="photo-upload">
+                        <div id="image-preview" class="mt-2" style="height: auto; width: 300px;"></div>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -32,16 +33,32 @@
                     <input type="text" class="form-control" id="history" placeholder="History">
                     <button type="button" id="add-btn" class="btn btn-secondary mt-2">Add</button>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
-                </div>
+
             </form>
             <div id="histories" class="mt-4"></div>
-
-        </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+            </div>
+        </div>  
         
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                const photoUpload = document.querySelector('#photo-upload');
+                const imagePreview = document.querySelector('#image-preview');
+
+                photoUpload.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            imagePreview.innerHTML = '<img src="' + e.target.result + '" class="img-fluid" />';
+                        };
+
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
                 const addBtn = document.querySelector('#add-btn');
                 const historiesDiv = document.querySelector('#histories');
                 const historyInput = document.querySelector('#history');
