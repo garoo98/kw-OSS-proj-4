@@ -3,18 +3,56 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous"
+        />
         <title>reigster - MyPortfolio</title>
     </head>
     <body>
         <div id="navbar"></div>
         <script src="navi.js"></script>
-        <!--  여기에 html 구현
-            
-
-
-
-            
--->
+        <!--회원 등록-->
+        <div class="text-center">
+            <h2>회원가입</h2>
+        </div>
+        <div class="container mt-3">
+            <div class="mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="name"
+                    id="name-new"
+                />
+            </div>
+            <div class="mb-3">
+                <input
+                    type="email"
+                    class="form-control"
+                    placeholder="email"
+                    id="email-new"
+                />
+            </div>
+            <div class="mb-3">
+                <input
+                    type="password"
+                    class="form-control"
+                    placeholder="pw"
+                    id="pw-new"
+                    required
+                />
+            </div>
+            <div>
+                <button
+                    type="submit"
+                    class="btn btn-primary ms-1 text-nowrap"
+                    id="register-btn"
+                >
+                    가입
+                </button>
+            </div>
+        </div>
     </body>
 
     <!-- firebase  -->
@@ -24,7 +62,9 @@
         import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js';
         import {
             getAuth, // authentication 설정
+            createUserWithEmailAndPassword, //회원가입
             onAuthStateChanged, //state change method
+            updateProfile, //Profile update
         } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
 
         // TODO: Add SDKs for Firebase products that you want to use
@@ -47,7 +87,51 @@
         const analytics = getAnalytics(app);
 
         const auth = getAuth();
+        let registerbtn = document.querySelector('#register-btn');
+        registerbtn.addEventListener('click', function () {
+            var registerName = document.querySelector('#name-new').value;
+            var registerEmail = document.querySelector('#email-new').value;
+            var registerPw = document.querySelector('#pw-new').value;
 
+            if (registerName.length === 0) {
+                alert('이름을 입력하세요');
+            } else if (registerEmail === '') {
+                alert('이메일을 입력하세요');
+            } else if (registerPw === '') {
+                alert('비밀번호를 입력하세요');
+            } else if (registerPw.length < 6 && registerPw.length > 0) {
+                alert('비밀번호 6자리 이상을 입력하세요');
+            } else {
+                createUserWithEmailAndPassword(auth, registerEmail, registerPw)
+                    .then((userCredential) => {
+                        // Registration successful
+                        var user = userCredential.user;
+                        updateProfile(user, {
+                            displayName: registerName,
+                        })
+                            .then(() => {
+                                //profile update
+                                console.log('update');
+                            })
+                            .catch((error) => {
+                                //error occurr
+                                console.log('error');
+                            });
+                        console.log(user);
+                        window.location.href = 'index.html';
+                    })
+                    .catch((error) => {
+                        // Handle Errors
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.error(
+                            'Registration error:',
+                            errorCode,
+                            errorMessage
+                        );
+                    });
+            }
+        });
         //로그인 상태 확인
         onAuthStateChanged(auth, (user) => {
             // 사용자가 로그인한 상태
@@ -71,7 +155,6 @@
                         e.preventDefault();
                         auth.signOut().then(() => {
                             alert('logout');
-                            console.log(curuser);
                         });
                     } else if (navbar_log.textContent === 'Log In') {
                         window.location.href = 'login.html';

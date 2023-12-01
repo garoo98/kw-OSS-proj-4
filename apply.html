@@ -80,7 +80,6 @@
                         e.preventDefault();
                         auth.signOut().then(() => {
                             alert('logout');
-                            console.log(curuser);
                         });
                     } else if (navbar_log.textContent === 'Log In') {
                         window.location.href = 'login.html';
