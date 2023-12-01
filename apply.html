@@ -45,7 +45,11 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const photoUpload = document.querySelector('#photo-upload');
                 const imagePreview = document.querySelector('#image-preview');
-
+                const historyInput = document.querySelector('#history');
+                const addBtn = document.querySelector('#add-btn');
+                const historiesDiv = document.querySelector('#histories');
+                const histories = [];
+        
                 photoUpload.addEventListener('change', function() {
                     if (this.files && this.files[0]) {
                         var reader = new FileReader();
@@ -57,27 +61,34 @@
                         reader.readAsDataURL(this.files[0]);
                     }
                 });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-                const addBtn = document.querySelector('#add-btn');
-                const historiesDiv = document.querySelector('#histories');
-                const historyInput = document.querySelector('#history');
         
                 addBtn.addEventListener('click', function() {
                     const historyTitle = historyInput.value;
                     if (historyTitle) {
+                        const newHistory = {
+                            title: historyTitle,
+                            text: [],
+                            url: []
+                        };
+        
                         const historySection = document.createElement('div');
                         historySection.classList.add('history-section');
                         historySection.innerHTML = `
-                            <h3>${historyTitle} <button class="delete-history-btn btn btn-sm btn-danger">Delete History</button></h3>
+                            <h3>${historyTitle} <button class="delete-history-btn btn btn-sm btn-danger">Delete</button></h3>
                             <ul class="history-list"></ul>
                             <input type="text" class="history-item-input" placeholder="Add history">
                             <input type="text" class="history-item-url-input" placeholder="URL (optional)">
                             <button class="add-history-item-btn btn btn-sm btn-primary mt-2">Add history</button>
                         `;
+                        historiesDiv.appendChild(historySection);
+        
+                        const deleteHistoryBtn = historySection.querySelector('.delete-history-btn');
+                        deleteHistoryBtn.addEventListener('click', function() {
+                            historySection.remove();
+                            histories.splice(histories.indexOf(newHistory), 1);
+                        });
         
                         const addItemBtn = historySection.querySelector('.add-history-item-btn');
-                        const deleteHistoryBtn = historySection.querySelector('.delete-history-btn');
                         const itemInput = historySection.querySelector('.history-item-input');
                         const urlInput = historySection.querySelector('.history-item-url-input');
                         const historyList = historySection.querySelector('.history-list');
@@ -85,44 +96,38 @@
                         addItemBtn.addEventListener('click', function() {
                             const itemText = itemInput.value;
                             const itemUrl = urlInput.value;
+                            if (itemText) {
+                                newHistory.text.push(itemText);
+                                newHistory.url.push(itemUrl);
         
-                            const listItem = document.createElement('li');
-                            
-                            if (itemUrl) {
-                                // URL이 있는 경우, 링크를 만듭니다.
-                                const link = document.createElement('a');
-                                link.textContent = itemText;
-                                link.href = itemUrl;
-                                link.target = '_blank';
-                                listItem.appendChild(link);
-                            } else {
-                                // URL이 없는 경우, 텍스트만 추가합니다.
-                                listItem.textContent = itemText;
+                                const listItem = document.createElement('li');
+                                listItem.textContent = itemText + (itemUrl ? `: ${itemUrl}` : '');
+        
+                                const deleteItemBtn = document.createElement('button');
+                                deleteItemBtn.textContent = 'Delete';
+                                deleteItemBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'ml-2');
+                                deleteItemBtn.onclick = function() {
+                                    const index = newHistory.text.indexOf(itemText);
+                                    newHistory.text.splice(index, 1);
+                                    newHistory.url.splice(index, 1);
+                                    listItem.remove();
+                                };
+        
+                                listItem.appendChild(deleteItemBtn);
+                                historyList.appendChild(listItem);
+        
+                                itemInput.value = '';
+                                urlInput.value = '';
                             }
-                            
-                            const deleteItemBtn = document.createElement('button');
-                            deleteItemBtn.textContent = 'Delete';
-                            deleteItemBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'ml-2');
-                            deleteItemBtn.onclick = function() {
-                                listItem.remove();
-                            };
-        
-                            listItem.appendChild(deleteItemBtn);
-                            historyList.appendChild(listItem);
-                            itemInput.value = '';
-                            urlInput.value = '';
                         });
         
-                        deleteHistoryBtn.addEventListener('click', function() {
-                            historySection.remove();
-                        });
-        
-                        historiesDiv.appendChild(historySection);
+                        histories.push(newHistory);
                         historyInput.value = '';
                     }
                 });
             });
         </script>
+        
 
 
 
@@ -135,7 +140,6 @@
             getAuth, // authentication 설정
             onAuthStateChanged, //state change method
         } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
-
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -156,7 +160,6 @@
         const analytics = getAnalytics(app);
         
         const auth = getAuth();
-
         //로그인 상태 확인
         onAuthStateChanged(auth, (user) => {
             // 사용자가 로그인한 상태
@@ -164,11 +167,9 @@
                 console.log('User is signed in:', user);
                 // 여기서 원하는 로그인 상태를 처리
                 //로그아웃 버튼을 nav에 추가 추가
-
                 const navbar_log = document.querySelector('#nav-log');
                 console.log(navbar_log);
                 navbar_log.textContent = 'Log Out';
-
                 const logoutButton = document.getElementById('nav-log');
 
                 //로그아웃 버튼을 누른 경우
@@ -195,5 +196,6 @@
                 window.location.href = 'login.html';
             }
         });
+
     </script>
 </html>
