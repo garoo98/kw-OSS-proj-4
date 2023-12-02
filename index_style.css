@@ -52,21 +52,6 @@
     transition: all 0.3s;
     cursor: all-scroll;
 }
-.intro_text .img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 30vh;
-    height: 30vh;
-    border-radius: 50%;
-    overflow: hidden;
-    filter: grayscale(100%);
-    transition: all 0.3s;
-}
-.intro_text:hover .img {
-    filter: grayscale(0);
-}
 .intro_text .store{
     color: black;
 }
