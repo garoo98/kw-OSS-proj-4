@@ -6,3 +6,189 @@
     padding: 10px 20px;
     margin: 20px 0;
 }
+#intro {
+    height: 80vh;
+}
+.intro_inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 15rem;
+    flex-direction: column;
+    padding: 16px;
+}
+.intro_title {
+    font-size: 8vw;
+    text-transform: uppercase;
+    line-height: 1;
+    font-weight: 800;
+    white-space: nowrap;
+    text-indent: -0.5vw;
+    letter-spacing: -0.3vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+.intro_text {
+    width: 100%;
+    height: 40vh;
+    background-color: var(--black);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+.intro_text .text {
+    font-size: 3vw;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    transition: all 0.3s;
+    cursor: all-scroll;
+}
+.intro_text .img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30vh;
+    height: 30vh;
+    border-radius: 50%;
+    overflow: hidden;
+    filter: grayscale(100%);
+    transition: all 0.3s;
+}
+.intro_text:hover .img {
+    filter: grayscale(0);
+}
+.intro_text .store{
+    color: black;
+}
+
+.slkll_inner {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.skill_title {
+    position: sticky;
+    top: 70px;
+    left: 0;
+    width: 48%;
+    height: 5vw;
+    font-size: 4vw;
+    font-weight: 900;
+    line-height: 1.6;
+    font-family: var(--mainKor-font);
+    text-transform: uppercase;
+    color: var(--black100);
+    border-bottom: 0.4vw solid var(--black100);
+}
+.skill_title em {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 2;
+}
+.skill_desc {
+    width: 50%;
+    margin: auto;
+}
+.skill_desc span {
+    font-size: 5vw;
+    line-height: 1;
+    font-weight: 900;
+    line-height: 1.3;
+    font-family: var(--mainNum-font);
+}
+.skill_desc h3 {
+    color: black;
+    font-size: 1.5rem;
+    text-decoration: underline;
+    text-underline-position: under;
+    margin-bottom: 1vw;
+}
+.skill_desc p {
+    margin-bottom: 5rem;
+    font-size: 1.1rem;
+}
+
+#port {
+    width: 100%;
+    margin-top: 30vh;
+    overflow: hidden;
+}
+.port_inner {
+    padding: 16px;
+}
+.port_title {
+    width: 100%;
+    height: 5vw;
+    font-size: 4vw;
+    font-weight: 900;
+    line-height: 1.6;
+    font-family: var(--mainKor-font);
+    text-transform: uppercase;
+    color: var(--black100);
+    border-bottom: 0.4vw solid var(--black100);
+    margin-bottom: 16px;
+    text-indent: -0.26vw;
+}
+.port_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 7000px;
+}
+.port_item {
+    width: 500px;
+    height: 70vh;
+    background-color: var(--subBg100);
+    padding: 2.5rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.port_item .img {
+    display: block;
+    margin-top: -20px;
+    transition: margin-top 0.3s;
+}
+.port_item:hover .img {
+    margin-top: 0;
+}
+
+.port_item .title {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.8rem 0;
+    font-weight: 700;
+    color: var(--black100);
+    border-bottom: 2px solid var(--black100);
+    margin-bottom: 1rem;
+}
+.port_item .desc {
+    font-size: 1rem;
+}
+.port_item .site {
+    display: block;
+    text-align: center;
+    padding: 0.625rem 1.5rem;
+    margin-top: 1.5rem;
+
+}
+.port_item .site:hover {
+    background-color: var(--black100);
+    color: var(--white);
+}
+
+.port_item .images{
+    width: 260px;
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+}

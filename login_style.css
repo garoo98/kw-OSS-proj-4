@@ -1,13 +1,3 @@
-*{
-    padding: 0;
-    margin: 0;
-    border: none;
-}
-body{
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-}
-
 .container{
     width: 1000px;
     height: 350px;
@@ -34,8 +24,28 @@ body{
     background-color: #F8F8F8;
 }
 
+
 .btn{
     width: 100%;
+    margin-bottom: 10px;
+}
+
+#fid-btn{
+    background-color: lightgray;
+    width: 200px;
+    height: 35px;
+    margin: auto;
+    text-align: center;
+    border: white;
+}
+
+#fpw-btn{
+    background-color: lightgray;
+    width: 200px;
+    height: 35px;
+    margin: auto;
+    text-align: center;
+    border: white;
 }
 
 .form-control::placeholder {

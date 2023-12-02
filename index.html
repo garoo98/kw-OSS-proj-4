@@ -15,38 +15,107 @@
         <link rel="stylesheet" href="index_style.css" />
 
         <title>MyPortfolio</title>
-        <style>
-            .content {
-                padding: 20px;
-                text-align: center;
-            }
-            .content button {
-                padding: 10px 20px;
-                margin: 20px 0;
-            }
-        </style>
     </head>
     <body>
         <div id="navbar"></div>
         <script src="navi.js"></script>
-        <div class="content">
-            <h2>Apply Your Portfolio</h2>
-            <button
-                type="button"
-                id="apply-btn"
-                class="btn btn-primary ms-1 text-nowrap"
-            >
-                Apply
-            </button>
-            <h2>Search Others Portfolio</h2>
-            <button
-                type="button"
-                id="search-btn"
-                class="btn btn-primary ms-1 text-nowrap"
-            >
-                Search
-            </button>
-        </div>
+        
+        <main id="main">
+            <div id="intro">
+                <div class="intro_inner">
+                    <h2 class="intro_title">
+                        portpolio storage
+                    </h2>
+                    <div class="intro_text">
+                        <div class="text">
+                            <a href="profile.html" class="store">
+                                <div>store your portpolio here</div>
+                            </a>
+                        </div>
+                        <div class="img">
+                            <img src="#" alt="어바웃미">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="skill">
+                <div class="slkll_inner">
+                    <h2 class="skill_title">
+                        features
+                    </h2>
+                    <div class="skill_desc">
+                        <div>
+                            <span>1.</span>
+                            <a href="profile.html">
+                                <h3>나의 개인 포트폴리오 저장</h3>
+                            </a>
+                            <p>
+                                내용
+                            </p>
+                        </div>
+                        <div>
+                            <span>2.</span>
+                            <a href="search.html">
+                                <h3>다른사람의 포트폴리오 열람</h3>
+                            </a>
+                            <p>
+                                내용
+                            </p>
+                        </div>
+                        <div>
+                            <span>3.</span>
+                            <h3>질문 게시판 개설</h3>
+                            <p>
+                                내용
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- //skill  -->
+    
+            <div id="port">
+                <div class="port_inner">
+                    <h2 class="port_title">
+                        uploaded portfolios
+                    </h2>
+                    <div class="port_wrap">
+                        <div class="port_item p1">
+                            <a href="#" target="_blank" class="img">
+                                <img src="image/p1.png" class="images" />
+                            </a>
+                            <h3 class="title">광운대학교 김현중</h3>
+                            <p class="desc">
+                                자신의 stack 요약본 입력한 것 표시
+                            </p>
+                            
+                        </div>
+                        <div class="port_item p2">
+                            <a href="#" class="img" target="_blank">
+                                <img src="image/p1.png" class="images" />
+                            </a>
+                            <h3 class="title">광운대학교 이성오</h3>
+                            <p class="desc">
+                                자신의 stack 요약본 입력한 것 표시
+                            </p>
+                            
+                        </div>
+                        <div class="port_item p3">
+                            <a href="#" class="img" target="_blank">
+                                <img src="image/p1.png" class="images" />
+                            </a>
+                            <h3 class="title">광운대학교 조민제</h3>
+                            <p class="desc">
+                                자신의 stack 요약본 입력한 것 표시
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //port -->
+        </main>
+        
         <script>
             let applybtn = document.querySelector('#apply-btn');
             applybtn.addEventListener('click', () => {
