@@ -8,6 +8,9 @@
             rel="stylesheet"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" type="text/css" href="./css/semantic.min.css">
+        <link rel="stylesheet" href="profile_style.css" />
+
         <title>Myprofile - MyPortfolio</title>
     </head>
     <body>
@@ -16,16 +19,120 @@
 
             //서버로 부터 로그인 확인
         </script>
-        <!--  여기에 html 구현
-            
-
-
-
-            
--->
+        <!--  여기에 html 구현-->
         <div id="navbar"></div>
         <script src="navi.js"></script>
-    </body>
+        <header class="header">
+            <div class="container">         
+                <div class="profile-content pull-left">
+                    <img src="image/p1.png" class="myphoto"> <!--얼굴사진-->
+                    <h1 class="name">Insert Your Name Here</h1>  
+                </div>         
+            </div>
+        </header>
+        
+        <div class="container wrapper">
+            <div class="row">
+                <div class="primary col-xs-12 col-md-8 col-sm-12">
+                    <section class="about section">
+                        <div class="section-inner">
+                            <h2 class="heading">About Me</h2>
+                            <div class="content">
+                                <p>자기소개 요약</p>
+                            </div>
+                        </div>                
+                    </section>
+                    <section class="latest section">
+                        <div class="section-inner">
+                            <h2 class="heading">Project</h2>
+                            <div class="content">    
+                                <div class="item featured text-center">
+                                    <h3 class="title">Project Title</h3>
+
+                                    <div class="desc text-left block">   
+                                        <h5>Project summary</h5>                                    
+                                        <li class="project_sum"></li>
+                                
+                                        <h5>진행과정</h5>
+                                        <li class="project_progress">진행사항</li>
+                                    </div>
+
+                                    <div class="featured-image">
+                                        <img width="300px" height="330px" src="#" alt="">
+                                    </div>
+                                        <a href="#" class="gitlink">GitHub</a>
+                                </div>
+                        </div>                
+                    </section>
+        
+                    <section class="latest section">
+                        <div class="section-inner">
+                            <h2 class="heading">Study</h2>
+                            <div class="content">    
+                                <div class="item featured text-center">
+                                    <h3 class="title">Study title</h3>
+                                    <p class="summary">Study summary</p>
+                                        
+                                    <div class="desc text-left block">                                    
+                                        <li class="study">공부한 내용</li>
+                                    </div>
+                                    <div class="featured-image">
+                                        <img width="300px" height="330px" src="#" alt="">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>              
+                    </section>
+    
+                </div>
+                <div class="secondary col-md-4 col-sm-12 col-xs-12">
+                    <aside class="info aside section">
+                        <div class="section-inner">
+                            <h2 class="heading">Basic Information</h2>
+                            <div class="content">
+                                <ul class="B-info list-unstyled">
+                                    <li><span class="sr-only">Call:</span>Phone Num</li>
+                                    <li></i><span class="sr-only">Email:</span>Email</li>
+                                </ul>
+                            </div>
+                        </div>               
+                    </aside>
+                    
+                    <aside class="skills section">
+                        <div class="section-inner">
+                            <h2 class="heading">Skills</h2>
+                            <div class="content">
+                                
+                                <div class="skillset">
+                                        <h3 class="level-title">
+                                            <li>Insert Your Skills here</li>
+                                        </h3>               
+                                </div>              
+                            </div>
+                        </div> 
+                    </aside>
+                    
+                    <aside class="education section">
+                        <div class="section-inner">
+                            <h2 class="heading">Education</h2>
+                                <div class="item">                      
+                                    <h3 class="title">Computer Engineering</h3>
+                                    <h4 class="university">Kwangwoon University <span class="year">year~</span></h4>
+                                </div>
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+    </body>   
+
+
+
+            
+
+        
 
     <!-- firebase  -->
     <script type="module">
