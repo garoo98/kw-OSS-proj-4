@@ -19,8 +19,11 @@
             <form id="portfolio-form">
                 <div class="mb-3 row">
                     <div class="col-md-8">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" rows="8" placeholder="name, email, phone number etc"></textarea>
+                        <input type="text" class="form-control" id="name" placeholder="Name">
+                        <input type="email" class="form-control mt-2" id="email" placeholder="Email">
+                        <input type="tel" class="form-control mt-2" id="phone" placeholder="Phone Number">
+                        <label for="education" class="form-label mt-3">Education</label>
+                        <textarea class="form-control" id="education" rows="5" placeholder="Education"></textarea>
                     </div>
                     <div class="col-md-4">
                         <label for="photo-upload" class="form-label">Upload Photo</label>
@@ -28,108 +31,29 @@
                         <div id="image-preview" class="mt-2" style="height: auto; width: 300px;"></div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="history" class="form-label">History Title</label>
-                    <input type="text" class="form-control" id="history" placeholder="History">
-                    <button type="button" id="add-btn" class="btn btn-secondary mt-2">Add</button>
+                <div class="mb-3 row">
+                    <div class="col-md-8">
+                        <label for="about-me" class="form-label">About me</label>
+                        <textarea class="form-control" id="about-me" rows="8" placeholder="introduce about you"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="skill" class="form-label">Skill</label>
+                        <textarea class="form-control" id="skill" rows="8" placeholder="skill"></textarea>
+                    </div>
                 </div>
-
+                <div>
+                    <label for="project" class="form-label">Project</label>
+                    <textarea class="form-control" id="project" rows="8" placeholder="insert your project"></textarea>
+                </div>
+                <div>
+                    <label for="Study" class="form-label">Study</label>
+                    <textarea class="form-control" id="study" rows="8" placeholder="insert your study"></textarea>
+                </div>
             </form>
-            <div id="histories" class="mt-4"></div>
             <div class="d-flex justify-content-end">
                 <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
             </div>
         </div>  
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const photoUpload = document.querySelector('#photo-upload');
-                const imagePreview = document.querySelector('#image-preview');
-                const historyInput = document.querySelector('#history');
-                const addBtn = document.querySelector('#add-btn');
-                const historiesDiv = document.querySelector('#histories');
-                const histories = [];
-        
-                photoUpload.addEventListener('change', function() {
-                    if (this.files && this.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            imagePreview.innerHTML = '<img src="' + e.target.result + '" class="img-fluid" />';
-                        };
-
-                        reader.readAsDataURL(this.files[0]);
-                    }
-                });
-        
-                addBtn.addEventListener('click', function() {
-                    const historyTitle = historyInput.value;
-                    if (historyTitle) {
-                        const newHistory = {
-                            title: historyTitle,
-                            text: [],
-                            url: []
-                        };
-        
-                        const historySection = document.createElement('div');
-                        historySection.classList.add('history-section');
-                        historySection.innerHTML = `
-                            <h3>${historyTitle} <button class="delete-history-btn btn btn-sm btn-danger">Delete</button></h3>
-                            <ul class="history-list"></ul>
-                            <input type="text" class="history-item-input" placeholder="Add history">
-                            <input type="text" class="history-item-url-input" placeholder="URL (optional)">
-                            <button class="add-history-item-btn btn btn-sm btn-primary mt-2">Add history</button>
-                        `;
-                        historiesDiv.appendChild(historySection);
-        
-                        const deleteHistoryBtn = historySection.querySelector('.delete-history-btn');
-                        deleteHistoryBtn.addEventListener('click', function() {
-                            historySection.remove();
-                            histories.splice(histories.indexOf(newHistory), 1);
-                        });
-        
-                        const addItemBtn = historySection.querySelector('.add-history-item-btn');
-                        const itemInput = historySection.querySelector('.history-item-input');
-                        const urlInput = historySection.querySelector('.history-item-url-input');
-                        const historyList = historySection.querySelector('.history-list');
-        
-                        addItemBtn.addEventListener('click', function() {
-                            const itemText = itemInput.value;
-                            const itemUrl = urlInput.value;
-                            if (itemText) {
-                                newHistory.text.push(itemText);
-                                newHistory.url.push(itemUrl);
-        
-                                const listItem = document.createElement('li');
-                                listItem.textContent = itemText + (itemUrl ? `: ${itemUrl}` : '');
-        
-                                const deleteItemBtn = document.createElement('button');
-                                deleteItemBtn.textContent = 'Delete';
-                                deleteItemBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'ml-2');
-                                deleteItemBtn.onclick = function() {
-                                    const index = newHistory.text.indexOf(itemText);
-                                    newHistory.text.splice(index, 1);
-                                    newHistory.url.splice(index, 1);
-                                    listItem.remove();
-                                };
-        
-                                listItem.appendChild(deleteItemBtn);
-                                historyList.appendChild(listItem);
-        
-                                itemInput.value = '';
-                                urlInput.value = '';
-                            }
-                        });
-        
-                        histories.push(newHistory);
-                        historyInput.value = '';
-                    }
-                });
-            });
-        </script>
-        
-
-
 
     <!-- firebase  -->
     <script type="module">
@@ -159,9 +83,8 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-        
+        const db = getFirestore(app);
         const auth = getAuth();
-        const firestore = getFirestore(app);   
         //로그인 상태 확인
         onAuthStateChanged(auth, (user) => {
             // 사용자가 로그인한 상태
@@ -197,52 +120,27 @@
                 navbar_log.textContent = 'Log In';
                 window.location.href = 'login.html';
             }
-            const specialOfTheDay=doc(firestore, 'Data', user.email);
-            
-            //firestore에 정보 세팅 및 저장
-            async function writeDailySpecial(){
-                const description = document.querySelector('#description').value;
-                const imageElement = document.querySelector('#image-preview img');
-                const image = imageElement ? imageElement.src : '';
-                const historiesData = Array.from(document.querySelectorAll('.history-section')).map(section => {
-                        const title = section.querySelector('h3').textContent.replace(' Delete', ''); // 'Delete' 텍스트 제거
-                        const items = Array.from(section.querySelectorAll('.history-list li')).map(li => {
-                            return {
-                                text: li.childNodes[0].nodeValue.trim(), // 텍스트 내용
-                                url: li.querySelector('a') ? li.querySelector('a').href : '' // URL
-                            };
-                        });
-                        return { title, items };
-                    });
-
-                const docData={
-                    description,
-                    image,
-                    histroes:historiesData
-                }
-
-                //description input 박스안에 있는 text를 firestore에 저장
-                const descriptiontext=document.querySelector('#description').value;
-                docData.description=descriptiontext;
-
-                //image 칸의 박스 안에 있는 그림 정보를 firestore에 저장
-                const imageInfo=document.querySelector('img');
-                if(imageInfo!==null){
-                    docData.image=imageInfo.src;
-                }
-                
-                await setDoc(specialOfTheDay, docData);
-
-            }
-
-            const SubmitButton=document.querySelector('#submit-btn');
-            
-            SubmitButton.addEventListener('click',()=>{
-                writeDailySpecial().then(()=>{
-                    window.location.href = 'index.html';
-                })
-            })
         });
+        document.querySelector('#portfolio-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
 
+        const user = auth.currentUser;
+        if (!user) {
+            console.log('No user signed in');
+            return;
+        }
+
+        const name = document.querySelector('#name').value;
+        const email = document.querySelector('#email').value;
+        const phone = document.querySelector('#phone').value;
+        const education = document.querySelector('#education').value;
+        const aboutMe = document.querySelector('#about-me').value;
+        const skill = document.querySelector('#skill').value;
+        const project = document.querySelector('#project').value;
+        const study = document.querySelector('#study').value;
+        const imageElement = document.querySelector('#image-preview img');
+        const image = imageElement ? imageElement.src : '';
+
+    });
     </script>
 </html>
