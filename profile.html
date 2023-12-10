@@ -8,6 +8,7 @@
             rel="stylesheet"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="profile_style.css" />
         <title>Myprofile - MyPortfolio</title>
     </head>
     <body>
@@ -16,21 +17,100 @@
 
             //서버로 부터 로그인 확인
         </script>
-        <!--  여기에 html 구현
-            
-
-
-
-            
--->
+        <!--  여기에 html 구현-->
         <div id="navbar"></div>
         <script src="navi.js"></script>
-    </body>
+        <header class="header">
+            <div class="container">         
+                <div class="profile-content pull-left">
+                    <!-- 사진 표시를 위한 img 태그 수정 -->
+                    <img class="profile-picture" src="#" alt="Profile Picture" style="width: 150px; height: auto;">
+                    <h1 class="name"></h1>  
+                </div>         
+            </div>
+        </header>
+        
+        <div class="container wrapper">
+            <div class="row">
+                <div class="primary col-xs-12 col-md-8 col-sm-12">
+                    <section class="about section">
+                        <div class="section-inner">
+                            <h2 class="heading">About Me</h2>
+                            <div class="content">
+                                <p>자기소개 요약</p>
+                            </div>
+                        </div>                
+                    </section>
+                    <section class="latest section">
+                        <div class="section-inner">
+                            <h2 class="heading">Project</h2>
+                            <div class="content">    
+                                <div class="item featured text-center">
+                                    <div class="desc text-left block project-desc">   
+                                    </div>
+                                </div>
+                        </div>                
+                    </section>
+        
+                    <section class="latest section">
+                        <div class="section-inner">
+                            <h2 class="heading">Study</h2>
+                            <div class="content">    
+                                <div class="item featured text-center">                                        
+                                    <div class="desc text-left block study-desc">                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>              
+                    </section>
+    
+                </div>
+                <div class="secondary col-md-4 col-sm-12 col-xs-12">
+                    <aside class="info aside section">
+                        <div class="section-inner">
+                            <h2 class="heading">Basic Information</h2>
+                            <div class="content">
+                                <ul class="B-info list-unstyled">
+                                    <li><span class="sr-only">Call:</span></li>
+                                    <li></i><span class="sr-only">Email:</span></li>
+                                </ul>
+                            </div>
+                        </div>               
+                    </aside>
+                    
+                    <aside class="skills section">
+                        <div class="section-inner">
+                            <h2 class="heading">Skills</h2>
+                            <div class="skillset">
+                                    <h3 class="level-title">
+                                        <li></li>
+                                    </h3>               
+                            </div>              
+                        </div> 
+                    </aside>
+                    
+                    <aside class="education section">
+                        <div class="section-inner">
+                            <h2 class="heading">Education</h2>
+                            <div class="time">
+                                <h3 class="level-title">
+                                    <li></li>
+                                </h3>
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+    </body>   
+        
 
     <!-- firebase  -->
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
+        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
         import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js';
         import {
             getAuth, // authentication 설정
@@ -55,7 +135,7 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-
+        const firestore = getFirestore(app);
         const auth = getAuth();
 
         //로그인 상태 확인
@@ -84,6 +164,16 @@
                         });
                     } else if (navbar_log.textContent === 'Log In') {
                         window.location.href = 'login.html';
+                    }                    
+                });
+                const portfolioDocRef = doc(firestore,"Data", user.email);
+                getDoc(portfolioDocRef).then((docSnap) => {
+                    if (docSnap.exists()) {
+                        console.log("exist data");
+                        const userData = docSnap.data();
+                        updateProfilePage(userData);
+                    } else {
+                        console.log("No such document!");
                     }
                 });
             }
@@ -96,5 +186,48 @@
                 window.location.href = 'login.html';
             }
         });
+        function nl2br(str) {
+            return str.replace(/\n/g, '<br>');
+        }
+        function updateProfilePage(userData) {
+        // 기본 정보 업데이트
+        document.querySelector('.B-info').innerHTML = `
+        <li><span class="sr-only">Call:</span>${userData.phone}</li>
+        <li><span class="sr-only">Email:</span>${userData.email}</li>
+        `;
+        const name = userData.name;
+        document.querySelector('.about .content').innerHTML = nl2br("<span style='font-weight: bold;'>Name:</span> "+ userData.name + "\n" + userData.aboutMe);
+        const skillsHTML = userData.skill.split('\n').map(skill => `<li>${nl2br(skill.trim())}</li>`).join('');
+        document.querySelector('.skills .skillset').innerHTML = skillsHTML;
+        const educationHTML = userData.education.split('\n').map(education => `<li>${nl2br(education.trim())}</li>`).join('');
+        document.querySelector('.education .time').innerHTML = educationHTML;
+
+
+        // 프로젝트 정보 업데이트
+        const projectSection = document.querySelector('.project-desc');
+        if (projectSection) {
+            let projectContent = userData.project ? nl2br(userData.project) : '프로젝트 정보를 입력해 주세요.';
+            if (userData.projectUrls && userData.projectUrls.length) {
+                projectContent += '<ul class="url-list">';
+                userData.projectUrls.forEach(url => {
+                    projectContent += `<li style="text-align: left;"><a href="${url}" target="_blank">${url}</a></li>`;
+                });
+                projectContent += '</ul>';
+            }
+            projectSection.innerHTML = projectContent;
+        }
+
+        // 스터디 정보 업데이트
+        const studySection = document.querySelector('.study-desc');
+        if (studySection) {
+            studySection.innerHTML = userData.study ? nl2br(userData.study) : '스터디 정보를 입력해 주세요.';
+        }
+
+        // 사진 정보 업데이트
+        const profilePicture = document.querySelector('.profile-picture');
+        if (profilePicture && userData.image) {
+            profilePicture.src = userData.image;
+        }
+    }
     </script>
 </html>

@@ -93,6 +93,8 @@
                         rows="8"
                         placeholder="insert your project"
                     ></textarea>
+                    <label for="project-urls" class="form-label mt-2">Project URLs (one per line)</label>
+                    <textarea class="form-control" id="project-urls" rows="3" placeholder="Enter  one per line"></textarea>
                 </div>
                 <div>
                     <label for="Study" class="form-label">Study</label>
@@ -222,6 +224,7 @@
                 const aboutMe = document.querySelector('#about-me').value;
                 const skill = document.querySelector('#skill').value;
                 const project = document.querySelector('#project').value;
+                const projectUrls = document.querySelector('#project-urls').value.split('\n').filter(url => url.trim() !== '');
                 const study = document.querySelector('#study').value;
 
                 const docData = {
@@ -231,7 +234,8 @@
                     education: education,
                     aboutMe: aboutMe,
                     skill: skill,
-                    project: project,
+                    project:project,
+                    projectUrls: projectUrls,
                     study: study,
                     image: '',
                 };

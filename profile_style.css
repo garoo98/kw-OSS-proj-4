@@ -1,0 +1,166 @@
+body{
+    color: #434343;
+    font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-weight: 700;
+    color: #778492;
+}
+
+a{
+    color: #3AAA64;
+}
+
+.container {
+    width: 1360px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.block{
+    background-color: #E4DCCF;
+    padding:10px;
+}
+
+.header {
+    padding: 30px 0;
+}
+.header .btn {
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+.header .myphoto {
+    width: 200px;
+    height: auto;
+}
+
+.profile-content img, .profile-content h1 {
+    float: left;
+    margin-right: 10px;
+}
+
+.profile-content h1{
+    margin-left: 20px;
+}
+
+.header .profile-content .name:last-child {
+    color: #49515a;
+    font-size: 38px;
+    margin-bottom: 5px;
+    margin-top: 30px;
+}
+
+.wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section .section-inner {
+    background: #F9F5EB;
+    padding: 30px;
+}
+
+.section .heading {
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #545e69;
+    font-size: 24px;
+}
+
+.latest .featured {
+    margin-bottom: 60px;
+}
+
+.latest .featured .title {
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.latest .featured .desc {
+    margin-bottom: 30px;
+}
+
+.latest .featured-image {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.projects .item {
+    margin-bottom: 30px;
+}
+
+.projects .item .title {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.projects .item .title a {
+    color: #778492;
+}
+
+.projects .item .title a:hover {
+    color: #5f6b77;
+}
+
+
+.info ul {
+    margin-bottom: 0;
+}
+
+.info li {
+    color: #778492;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.info li:last-child {
+    margin-bottom: 0;
+}
+
+.skills .intro {
+    margin-bottom: 30px;
+}
+.skills .skillset .item {
+    margin-bottom: 30px;
+    white-space: pre-wrap;
+}
+.skills .skillset .level-title {
+    font-size: 16px;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 10;
+    
+}
+
+.education .item {
+    margin-bottom: 30px;
+}
+
+.education .item:last-child {
+    margin-bottom: 0;
+}
+
+.education .item .title {
+    font-size: 20px;
+    margin-top: 0;
+}
+.education .item .university {
+    font-size: 13px;
+    color: #999;
+    font-weight: 600;
+    padding-left: 25px;
+}
+.education .item .university .year {
+    color: #b0b7bf;
+    font-weight: 500;
+}
+
