@@ -71,6 +71,7 @@
             getAuth, // authentication 설정
             createUserWithEmailAndPassword, //회원가입
             onAuthStateChanged, //state change method
+            updateProfile, //Profile update
         } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
 
         // TODO: Add SDKs for Firebase products that you want to use
@@ -95,16 +96,35 @@
         const auth = getAuth();
         let registerbtn = document.querySelector('#register-btn');
         registerbtn.addEventListener('click', function () {
+            var registerName = document.querySelector('#name-new').value;
             var registerEmail = document.querySelector('#email-new').value;
             var registerPw = document.querySelector('#pw-new').value;
 
-            if (registerPw.length < 6) {
-                alert('more than 6 password');
+            if (registerName.length === 0) {
+                alert('이름을 입력하세요');
+            } else if (registerEmail === '') {
+                alert('이메일을 입력하세요');
+            } else if (registerPw === '') {
+                alert('비밀번호를 입력하세요');
+            } else if (registerPw.length < 6 && registerPw.length > 0) {
+                alert('비밀번호 6자리 이상을 입력하세요');
             } else {
                 createUserWithEmailAndPassword(auth, registerEmail, registerPw)
                     .then((userCredential) => {
                         // Registration successful
                         var user = userCredential.user;
+                        updateProfile(user, {
+                            displayName: registerName,
+                        })
+                            .then(() => {
+                                //profile update
+                                console.log('update');
+                            })
+                            .catch((error) => {
+                                //error occurr
+                                console.log('error');
+                            });
+
                         console.log(user);
                         window.location.href = 'index.html';
                     })
