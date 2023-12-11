@@ -103,8 +103,22 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+            <button type="modify" id="modify-btn" class="btn btn-primary">
+                Modify
+            </button>
+        </div>
     </body>   
         
+    <script>
+        const modifyButton = document.getElementById('modify-btn');
+        if (modifyButton) {
+            modifyButton.addEventListener('click', () => {
+                // modify.html로 이동
+                window.location.href = 'modify.html';
+            });
+        }
+    </script>
 
     <!-- firebase  -->
     <script type="module">

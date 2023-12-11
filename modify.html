@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous"
+    />
+    <title>Modify Your Portfolio</title>
+</head>
+<body>
+<div id="navbar"></div>
+<script src="navi.js"></script>
+
+<div class="container mt-4">
+    <h2 class="mb-3">Modify Your Portfolio</h2>
+    <form id="portfolio-form">
+        <div class="mb-3 row">
+            <div class="col-md-8">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Name"
+                />
+                <input
+                    type="email"
+                    class="form-control mt-2"
+                    id="email"
+                    placeholder="Email"
+                />
+                <input
+                    type="tel"
+                    class="form-control mt-2"
+                    id="phone"
+                    placeholder="Phone Number"
+                />
+                <label for="education" class="form-label mt-3">Education</label>
+                <textarea
+                    class="form-control"
+                    id="education"
+                    rows="5"
+                    placeholder="Education"
+                ></textarea>
+            </div>
+            <div class="col-md-4">
+                <label for="photo-upload" class="form-label">Upload Photo</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    id="photo-upload"
+                />
+                <div
+                    id="image-preview"
+                    class="mt-2"
+                    style="height: auto; width: 300px"
+                ></div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-md-8">
+                <label for="about-me" class="form-label">About me</label>
+                <textarea
+                    class="form-control"
+                    id="about-me"
+                    rows="8"
+                    placeholder="Introduce about you"
+                ></textarea>
+            </div>
+            <div class="col-md-4">
+                <label for="skill" class="form-label">Skill</label>
+                <textarea
+                    class="form-control"
+                    id="skill"
+                    rows="8"
+                    placeholder="Skill"
+                ></textarea>
+            </div>
+        </div>
+        <div>
+            <label for="project" class="form-label">Project</label>
+            <textarea
+                class="form-control"
+                id="project"
+                rows="8"
+                placeholder="Insert your project"
+            ></textarea>
+            <label for="project-urls" class="form-label mt-2">Project URLs (one per line)</label>
+            <textarea class="form-control" id="project-urls" rows="3" placeholder="Enter one per line"></textarea>
+        </div>
+        <div>
+            <label for="Study" class="form-label">Study</label>
+            <textarea
+                class="form-control"
+                id="study"
+                rows="8"
+                placeholder="Insert your study"
+            ></textarea>
+        </div>
+    </form>
+    <div class="d-flex justify-content-end">
+        <button type="button" id="submit-btn" class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const name = document.querySelector('#name').value;
+        const email = document.querySelector('#email').value;
+        const phone = document.querySelector('#phone').value;
+        const education = document.querySelector('#education').value;
+        const aboutMe = document.querySelector('#about-me').value;
+        const skill = document.querySelector('#skill').value;
+        const project = document.querySelector('#project').value;
+        const study = document.querySelector('#study').value;
+        const imagePreview = document.querySelector('#image-preview');
+        const photoUpload = document.querySelector('#photo-upload');
+
+        photoUpload.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.innerHTML =
+                        '<img src="' +
+                        e.target.result +
+                        '" class="img-fluid" />';
+                };
+
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+</script>
+
+<!-- firebase  -->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
+    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js';
+    import {
+        getAuth, // authentication 설정
+        onAuthStateChanged, //state change method
+    } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
+    import {
+        getFirestore,
+        doc,
+        getDoc,
+        setDoc,
+    } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: 'AIzaSyCewXKX4dEBB-Lrh4ymr_EOcn1Jdw3_pUk',
+        authDomain: 'opensource-project-b2d2f.firebaseapp.com',
+        projectId: 'opensource-project-b2d2f',
+        storageBucket: 'opensource-project-b2d2f.appspot.com',
+        messagingSenderId: '857335827397',
+        appId: '1:857335827397:web:64711d1e837f9264f199ac',
+        measurementId: 'G-6MPQYRFD68',
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const firestore = getFirestore(app);
+    const auth = getAuth();
+    //로그인 상태 확인
+    onAuthStateChanged(auth, (user) => {
+        // 사용자가 로그인한 상태
+        if (user) {
+            console.log('User is signed in:', user);
+            // 여기서 원하는 로그인 상태를 처리
+            //로그아웃 버튼을 nav에 추가 추가
+            const navbar_log = document.querySelector('#nav-log');
+            console.log(navbar_log);
+            navbar_log.textContent = 'Log Out';
+            const logoutButton = document.getElementById('nav-log');
+
+            //로그아웃 버튼을 누른 경우
+            logoutButton.addEventListener('click', (e) => {
+                //로그아웃 버튼을 눌렀을때 동작 추가하기
+                if (navbar_log.textContent === 'Log Out') {
+                    navbar_log.textContent = 'Log In';
+
+                    e.preventDefault();
+                    auth.signOut().then(() => {
+                        alert('logout');
+                    });
+                } else if (navbar_log.textContent === 'Log In') {
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+        // 사용자가 로그아웃한 상태
+        else {
+            console.log('User is signed out');
+            //여기서 원하는 로그아웃 상태를 처리
+            const navbar_log = document.querySelector('#nav-log');
+            navbar_log.textContent = 'Log In';
+            window.location.href = 'login.html';
+        }
+        const specialOfTheDay = doc(firestore, 'Data', user.email);
+        getDoc(specialOfTheDay).then((docSnap) => {
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                
+                // 폼 필드에 사용자 데이터 채우기sub
+                document.querySelector('#name').value = userData.name || '';
+                document.querySelector('#email').value = userData.email || '';
+                document.querySelector('#phone').value = userData.phone || '';
+                document.querySelector('#education').value = userData.education || '';
+                document.querySelector('#about-me').value = userData.aboutMe || '';
+                document.querySelector('#skill').value = userData.skill || '';
+                document.querySelector('#project').value = userData.project || '';
+                document.querySelector('#project-urls').value = userData.projectUrls ? userData.projectUrls.join('\n') : '';
+                document.querySelector('#study').value = userData.study || '';
+
+                // 이미지 미리보기 설정
+                if (userData.image) {
+                    document.querySelector('#image-preview').innerHTML = '<img src="' + userData.image + '" class="img-fluid" />';
+                }
+            }
+        }).catch((error) => {
+            console.error("Error fetching user data:", error);
+        });
+        //firestore에 정보 세팅 및 저장
+        async function writeDailySpecial() {
+            const name = document.querySelector('#name').value;
+            const email = document.querySelector('#email').value;
+            const phone = document.querySelector('#phone').value;
+            const education = document.querySelector('#education').value;
+            const aboutMe = document.querySelector('#about-me').value;
+            const skill = document.querySelector('#skill').value;
+            const project = document.querySelector('#project').value;
+            const projectUrls = document.querySelector('#project-urls').value.split('\n').filter(url => url.trim() !== '');
+            const study = document.querySelector('#study').value;
+
+            const docData = {
+                name: name,
+                email: email,
+                phone: phone,
+                education: education,
+                aboutMe: aboutMe,
+                skill: skill,
+                project:project,
+                projectUrls: projectUrls,
+                study: study,
+                image: '',
+            };
+
+            //image 칸의 박스 안에 있는 그림 정보를 firestore에 저장
+            const imageInfo = document.querySelector('img');
+            console.log(imageInfo);
+            if (imageInfo !== null) {
+                docData.image = imageInfo.src;
+                console.log(docData.image);
+            }
+
+            await setDoc(specialOfTheDay, docData);
+        }
+
+        const SubmitButton = document.querySelector('#submit-btn');
+
+        SubmitButton.addEventListener('click', () => {
+            writeDailySpecial().then(() => {
+                window.location.href = 'profile.html';
+            });
+        });
+    });
+</script>
+</body>
+</html>
