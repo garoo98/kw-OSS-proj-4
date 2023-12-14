@@ -38,6 +38,13 @@
                 border: 1px solid #000;
                 padding: 15px;
             }
+            #comment-section {
+                margin-top: 30px;
+            }
+
+            #comment-box {
+                resize: none;
+            }
         </style>
     </head>
     <body>
@@ -48,6 +55,15 @@
             <p id="time"></p>
             <div id="content"></div>
         </div>
+        <div id="comment-section" class="d-flex justify-content-center">
+            <div style="width: 60%;">
+                <label for="comment-box">Comment</label> <!-- 댓글 라벨 추가 -->
+                <textarea id="comment-box" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                <button id="submit-comment" class="btn btn-primary float-end mt-2">Submit Comment</button>
+            </div>
+        </div>
+    </div>
+    </div>
     </body>
 
     <!-- firebase  -->
@@ -165,7 +181,6 @@
             let postcontent = document.querySelector('#content');
             let posttime = document.querySelector('#time');
             posttitle.textContent = 'Title: ' + postData.title;
-            posttime.textContent = '등록일: ' + postData.createdAt;
             postcontent.textContent = postData.content;
         }
     </script>

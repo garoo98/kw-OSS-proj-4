@@ -109,10 +109,9 @@
 
             // 현재 로그인한 사용자 가져오기
             const user = auth.currentUser;
-
             if (user) {
                 // "board" 컬렉션에 글 추가
-                const boardRef = doc(firestore, 'board', user.email);
+                console.log(1234);
                 const postData = {
                     title: title,
                     content: content,

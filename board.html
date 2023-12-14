@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,15 +11,64 @@
         />
         <link rel="stylesheet" href="board.css" />
         <title>Board - MyPortfolio</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                line-height: 1.6;
+            }
+    
+            h1 {
+                color: #444;
+                margin-bottom: 20px;
+            }
+    
+            .list-group{
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                margin-top: 15px;
+                padding: 15px;
+                transition: background-color 0.3s;
+            }
+
+            .list-group-item:hover {
+                background-color: #e9ecef;
+            }
+    
+            .btn-primary {
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+    
+            .container {
+                width: 80%;
+                margin: auto;
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
         <div id="navbar"></div>
         <script src="navi.js"></script>
-        <div><h1>Board</h1></div>
-        <div>
-            <ul id="titles"></ul>
+        <div class="container mt-5">
+            <h1 class="text-center">Board</h1>
+            <ul id="titles" class="list-group"></ul>
+            <div class="d-flex justify-content-end mt-3">
+                <button type="button" id="apply-btn" class="btn btn-primary">Apply</button>
+            </div>
         </div>
     </body>
+    <script>
+        const modifyButton = document.getElementById('apply-btn');
+        if (modifyButton) {
+            modifyButton.addEventListener('click', () => {
+                // modify.html로 이동
+                window.location.href = 'apply_board.html';
+            });
+        }
+    </script>
 
     <!-- firebase  -->
     <script type="module">
@@ -118,6 +168,7 @@
                     containerli.style.overflow = 'hidden';
                     containerli.style.width = '700px';
                     containerli.style.height = '50px';
+                    containerli.style.margin="15px";
 
                     let link = document.createElement('a');
                     link.style.textDecoration = 'none';
