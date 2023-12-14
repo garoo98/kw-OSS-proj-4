@@ -16,22 +16,6 @@
         <div id="navbar"></div>
         <script src="navi.js"></script>
 
-        <div class="main">
-            <h2>EXAMPLE</h2>
-            <ul class="applicant">
-                <li>
-                    <img src="image/p1.png" alt="이미지 설명" height="302" />
-                </li>
-                <!--예시 포트폴리오 나중에 link로 변경-->
-                <li>
-                    <img src="image/p2.png" alt="이미지 설명" height="302" />
-                </li>
-                <li>
-                    <img src="image/p3.png" alt="이미지 설명" height="302" />
-                </li>
-            </ul>
-        </div>
-
         <div class="container mt-4">
             <h2>Search Portfolio</h2>
             <div class="input-group mb-3">
@@ -163,7 +147,7 @@
                         dataamount++;
                         ShowSearchResult(
                             doc.data().image,
-                            doc.data().email,
+                            doc.data().name,
                             doc.id
                         );
                     } else if (doc.data().education.includes(searchstring)) {
@@ -171,7 +155,7 @@
                         dataamount++;
                         ShowSearchResult(
                             doc.data().image,
-                            doc.data().education,
+                            doc.data().name,
                             doc.id
                         );
                     } else if (doc.data().aboutMe.includes(searchstring)) {
@@ -179,7 +163,7 @@
                         dataamount++;
                         ShowSearchResult(
                             doc.data().image,
-                            doc.data().aboutme,
+                            doc.data().name,
                             doc.id
                         );
                     } else if (doc.data().skill.includes(searchstring)) {
@@ -187,7 +171,7 @@
                         dataamount++;
                         ShowSearchResult(
                             doc.data().image,
-                            doc.data().skill,
+                            doc.data().name,
                             doc.id
                         );
                     } else if (doc.data().project.includes(searchstring)) {
@@ -195,7 +179,7 @@
                         dataamount++;
                         ShowSearchResult(
                             doc.data().image,
-                            doc.data().project,
+                            doc.data().name,
                             doc.id
                         );
                     } else if (doc.data().study.includes(searchstring)) {
@@ -203,7 +187,7 @@
                         dataamount++;
                         ShowSearchResult(
                             doc.data().image,
-                            doc.data().study,
+                            doc.data().name,    
                             doc.id
                         );
                     }
@@ -268,7 +252,7 @@
                 resultImage.src = image;
 
                 resultImage.style.width = '100%';
-                resultImage.style.height = '200px';
+                resultImage.style.height = 'auto';
                 resultImage.style.objectFit = 'cover';
             } else {
                 // 이미지가 없을 때 대체 텍스트 표시

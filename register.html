@@ -15,50 +15,50 @@
         <div id="navbar"></div>
         <script src="navi.js"></script>
         <div class="container mt-3">
-        <!--회원 등록-->
-        <div class="col-md-6 offset-md-3">
-        <div class="card">
-        <div class="card-body">
-            <h3 class="card-title text-center">회원가입</h3>
-        <form id="registerForm" action="/register" method="post">
-            <div class="mb-3">
-                <input
-                    type="text"
-                    class="form-control custom-input"
-                    placeholder="이름"
-                    id="name-new"
-                />
+            <!--회원 등록-->
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">회원가입</h3>
+                        <form>
+                            <div class="mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control custom-input"
+                                    placeholder="이름"
+                                    id="name-new"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <input
+                                    type="email"
+                                    class="form-control custom-input"
+                                    placeholder="이메일"
+                                    id="email-new"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <input
+                                    type="password"
+                                    class="form-control custom-input"
+                                    placeholder="비밀번호"
+                                    id="pw-new"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <button
+                                    type="button"
+                                    class="btn btn-primary ms-1 text-nowrap"
+                                    id="register-btn"
+                                >
+                                    가입
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <input
-                    type="email"
-                    class="form-control custom-input"
-                    placeholder="이메일"
-                    id="email-new"
-                />
-            </div>
-            <div class="mb-3">
-                <input
-                    type="password"
-                    class="form-control custom-input"
-                    placeholder="비밀번호"
-                    id="pw-new"
-                    required
-                />
-            </div>
-            <div>
-                <button
-                    type="submit"
-                    class="btn btn-primary ms-1 text-nowrap"
-                    id="register-btn"
-                >
-                    가입
-                </button>
-            </div>
-        </form>
-        </div>
-        </div>
-        </div>
         </div>
     </body>
 

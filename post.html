@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="board.css" />
+        <title>post - MyPortfolio</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+            #content-container {
+                margin: 50px auto;
+                width: 60%;
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            #title {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+            #time {
+                color: #777;
+                margin-bottom: 20px;
+            }
+            #content {
+                line-height: 1.6;
+                border: 1px solid #000;
+                padding: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="navbar"></div>
+        <script src="navi.js"></script>
+        <div id="content-container">
+            <h3 id="title"></h3>
+            <p id="time"></p>
+            <div id="content"></div>
+        </div>
+    </body>
+
+    <!-- firebase  -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js';
+        import {
+            getAuth, // authentication 설정
+            onAuthStateChanged, //state change method
+        } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js';
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+        } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: 'AIzaSyCewXKX4dEBB-Lrh4ymr_EOcn1Jdw3_pUk',
+            authDomain: 'opensource-project-b2d2f.firebaseapp.com',
+            projectId: 'opensource-project-b2d2f',
+            storageBucket: 'opensource-project-b2d2f.appspot.com',
+            messagingSenderId: '857335827397',
+            appId: '1:857335827397:web:64711d1e837f9264f199ac',
+            measurementId: 'G-6MPQYRFD68',
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const auth = getAuth();
+        const firestore = getFirestore(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            //로그인 상태 확인
+            onAuthStateChanged(auth, (user) => {
+                // 사용자가 로그인한 상태
+                if (user) {
+                    console.log('User is signed in:', user);
+                    // 여기서 원하는 로그인 상태를 처리
+                    //로그아웃 버튼을 nav에 추가 추가
+
+                    const navbar_log = document.querySelector('#nav-log');
+                    console.log(navbar_log);
+                    navbar_log.textContent = 'Log Out';
+
+                    const logoutButton = document.getElementById('nav-log');
+
+                    //로그아웃 버튼을 누른 경우
+                    logoutButton.addEventListener('click', (e) => {
+                        //로그아웃 버튼을 눌렀을때 동작 추가하기
+                        if (navbar_log.textContent === 'Log Out') {
+                            navbar_log.textContent = 'Log In';
+
+                            e.preventDefault();
+                            auth.signOut().then(() => {
+                                alert('logout');
+                            });
+                        } else if (navbar_log.textContent === 'Log In') {
+                            //window.location.href = 'login.html';
+                        }
+                    });
+                }
+                // 사용자가 로그아웃한 상태
+                else {
+                    console.log('User is signed out');
+                    //여기서 원하는 로그아웃 상태를 처리
+                    const navbar_log = document.querySelector('#nav-log');
+                    navbar_log.textContent = 'Log In';
+                    window.location.href = 'login.html';
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const encodedData = urlParams.get('data');
+                let docu_id;
+                if (encodedData) {
+                    const serializedData = decodeURIComponent(encodedData);
+                    docu_id = JSON.parse(serializedData);
+                    console.log(docu_id); // 이 데이터를 사용하여 원하는 동작 수행
+                } else {
+                    console.log('No data found');
+                }
+
+                //컬렉션 내의 단일 문서 가져오기
+                async function getportfolio() {
+                    try {
+                        const docRef = doc(firestore, 'board', docu_id);
+                        const docSnap = await getDoc(docRef);
+
+                        if (docSnap.exists()) {
+                            console.log('Document data:', docSnap.data());
+                            return docSnap.data();
+                        } else {
+                            console.log('No such document!');
+                        }
+                    } catch (e) {
+                        console.log('Error fetching document:', e);
+                    }
+                }
+                getportfolio().then((docu) => {
+                    updatePostPage(docu);
+                });
+
+                //게시글 출력
+            });
+        });
+
+        function updatePostPage(postData) {
+            let posttitle = document.querySelector('#title');
+            let postcontent = document.querySelector('#content');
+            let posttime = document.querySelector('#time');
+            posttitle.textContent = 'Title: ' + postData.title;
+            posttime.textContent = '등록일: ' + postData.createdAt;
+            postcontent.textContent = postData.content;
+        }
+    </script>
+</html>
