@@ -1,10 +1,11 @@
-.main > h2 {
-    padding-top: 100px;
-    padding-bottom: 100px;
+
+.main > h2{
+    padding-top: 50px;
+    padding-bottom: 50px;
     text-align: center;
 }
 
-.applicant {
+.applicant{
     display: flex;
     width: 1000px;
     height: 302px;
@@ -12,7 +13,7 @@
     margin: auto;
 }
 
-.applicant > li {
+.applicant > li{
     flex: 1;
     height: 302px;
     background-color: lightgray;
@@ -21,15 +22,72 @@
     margin: auto;
 }
 
-.applicant > li:not(:last-child) {
+.applicant >li:not(:last-child){
     margin-right: 20px;
 }
 
-.applicant > li:not(:first-child) {
+.applicant >li:not(:first-child){
     margin-left: 20px;
 }
 
-.container {
-    padding-top: 100px;
+.container{
+    padding-top: 50px;
     width: 1000px;
+    margin-bottom: 100px;
+}
+
+.port_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 7000px;
+}
+.port_item {
+    width: 500px;
+    height: 70vh;
+    background-color: var(--subBg100);
+    padding: 2.5rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.port_item .num {
+    font-size: 2rem;
+    font-family: var(--mainNum-font);
+}
+.port_item .img {
+    display: block;
+    margin-top: -20px;
+    transition: margin-top 0.3s;
+}
+.port_item:hover .img {
+    margin-top: 0;
+}
+.port_item .title {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.8rem 0;
+    font-weight: 700;
+    color: var(--black100);
+    border-bottom: 2px solid var(--black100);
+    margin-bottom: 1rem;
+}
+.port_item .desc {
+    font-size: 1rem;
+}
+.port_item .site {
+    display: block;
+    text-align: center;
+    padding: 0.625rem 1.5rem;
+    margin-top: 1.5rem;
+
+}
+.port_item .site:hover {
+    background-color: var(--black100);
+    color: var(--white);
+}
+
+.images{
+    width: 260px;
+    margin-top: 20px;
+    margin-left: 80px;
+    margin-bottom: 20px;
 }
