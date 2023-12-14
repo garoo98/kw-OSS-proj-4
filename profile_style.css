@@ -131,12 +131,14 @@ a{
 }
 .skills .skillset .item {
     margin-bottom: 30px;
+    white-space: pre-wrap;
 }
 .skills .skillset .level-title {
     font-size: 16px;
     position: relative;
     margin-top: 0;
     margin-bottom: 10;
+    
 }
 
 .education .item {
